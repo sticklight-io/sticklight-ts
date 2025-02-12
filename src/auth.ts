@@ -1,4 +1,3 @@
-import { STICKLIGHT_API_KEY_ENV_VAR_NAME } from "./consts";
 import { SticklightApiKeyNotFoundError } from "./errors";
 
 export function resolveSticklightApiKey(sticklightApiKey?: string): string {
@@ -6,12 +5,12 @@ export function resolveSticklightApiKey(sticklightApiKey?: string): string {
     return sticklightApiKey;
   }
 
-  const envApiKey = process.env[STICKLIGHT_API_KEY_ENV_VAR_NAME];
-  if (!envApiKey) {
+  const sessionApiKey = sessionStorage.getItem("sticklight_api_key");
+  if (!sessionApiKey) {
     throw new SticklightApiKeyNotFoundError(
-      `Sticklight API key not found. Either set the ${STICKLIGHT_API_KEY_ENV_VAR_NAME} environment variable or pass it to the capture function.`
+      "Sticklight API key not found. Either call sticklight.init() with the API key at the start of your application or pass it to the capture function."
     );
   }
 
-  return envApiKey;
+  return sessionApiKey;
 } 
