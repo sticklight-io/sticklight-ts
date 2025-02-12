@@ -1,0 +1,52 @@
+{
+  "name": "sticklight",
+  "version": "0.1.4",
+  "description": "The Official Sticklight TypeScript SDK",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "format": "biome format .",
+    "lint": "biome lint ."
+  },
+  "keywords": [
+    "sticklight",
+    "ai",
+    "llm",
+    "product analytics",
+    "product",
+    "analytics",
+    "agent",
+    "data",
+    "platform",
+    "openai",
+    "anthropic",
+    "gpt",
+    "chatbot"
+  ],
+  "dependencies": {
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2",
+    "@types/node": "^20.11.19",
+    "tsup": "^8.0.2"
+  },
+  "author": "Sticklight",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sticklight/sticklight-ts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sticklight/sticklight-ts/issues"
+  },
+  "homepage": "https://sticklight.com"
+} 
