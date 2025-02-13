@@ -50,7 +50,6 @@ To create an API key, go to the [Sticklight Platform].
 
 ## About Sticklight
 
-### Book your Demo now
 Sticklight provides precise and actionable analytics for AI-powered products, giving product managers and developers deep insights into how users interact with their AI features. Our platform helps you:
 
 - Understand user patterns and behaviors in LLM interactions

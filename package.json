@@ -1,6 +1,6 @@
 {
   "name": "@sticklight/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The Official Sticklight TypeScript SDK",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -16,8 +16,9 @@
     "format": "biome format .",
     "lint": "biome lint .",
     "preversion": "npm run lint && npm test",
-    "// typecheck": "// For CI. 'npm run dev' already does typechecking (dts:true in tsup.config.ts)",
-    "typecheck": "tsc --noEmit"
+    "publish": "npm publish --access public",
+    "// ci:typecheck": "// For CI. 'npm run dev' already does typechecking (dts:true in tsup.config.ts)",
+    "ci:typecheck": "tsc --noEmit"
   },
   "keywords": [
     "sticklight",

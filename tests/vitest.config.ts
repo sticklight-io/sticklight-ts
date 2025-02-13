@@ -7,7 +7,8 @@ export default defineConfig({
 		// 	enabled: true,
 		// },
 		cache: false,
-		includeTaskLocation: true
+		includeTaskLocation: true,
+		reporters: ['verbose']
 	},
 	clearScreen: true,
 	

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { STICKLIGHT_API_BASE_URL } from "./consts";
+import store from "./sessionStore";
 import { resolveSticklightApiKey } from "./auth";
 
 
@@ -22,17 +22,17 @@ export interface CaptureOptions {
 export async function capture(eventName: string, data: CaptureOptions): Promise<AxiosResponse> {
   const { $sticklightApiKey, ...dataWithoutApiKey } = data;
   const apiKey = resolveSticklightApiKey($sticklightApiKey);
-  const requestBody = {event_name: eventName, data: dataWithoutApiKey};
+  const requestBody = [{event_name: eventName, data: dataWithoutApiKey}];
   
   const response = await axios.post(
-    `${STICKLIGHT_API_BASE_URL}/events-collect/v1/events`,
+    `${store.getApiBaseUrl()}/events-collect/v1/events`,
     requestBody,
     {
       headers: {
         accept: "application/json",
         "x-api-key": apiKey,
       },
-      timeout: 5000,
+      timeout: 30000,
     }
   );
 
