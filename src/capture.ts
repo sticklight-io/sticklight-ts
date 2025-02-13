@@ -15,9 +15,9 @@ export interface CaptureOptions {
 /**
  * Publish an event to Sticklight API.
  * 
- * @param {number} eventName - The name of the event to publish
+ * @param {number} eventName - Name of the event to publish
  * @param {CaptureOptions} data - Additional data to publish with the event. If `$sticklightApiKey` is included, it will be used as the API key.
- * @returns {Promise<AxiosResponse>} A promise that resolves with the API response
+ * @returns {Promise<AxiosResponse>} Promise resolving to the API response
  */
 export async function capture(eventName: string, data: CaptureOptions): Promise<AxiosResponse> {
   const { $sticklightApiKey, ...dataWithoutApiKey } = data;
