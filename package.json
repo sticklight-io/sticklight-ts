@@ -1,6 +1,6 @@
 {
-  "name": "sticklight",
-  "version": "0.1.4",
+  "name": "@sticklight/sdk",
+  "version": "0.1.0",
   "description": "The Official Sticklight TypeScript SDK",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -9,10 +9,16 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "// compile": "// Also builds the dist package.",
+    "compile": "tsup --minify terser",
+    "dev": "tsup --watch",
     "test": "vitest",
+    "test:watch": "vitest watch",
     "format": "biome format .",
-    "lint": "biome lint ."
+    "lint": "biome lint .",
+    "preversion": "npm run lint && npm test",
+    "// typecheck": "// For CI. 'npm run dev' already does typechecking (dts:true in tsup.config.ts)",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "sticklight",
@@ -34,13 +40,14 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.2",
     "@types/node": "^20.11.19",
-    "tsup": "^8.0.2"
+    "terser": "^5.39.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
   },
   "author": "Sticklight",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sticklight/sticklight-ts.git"
@@ -48,5 +55,5 @@
   "bugs": {
     "url": "https://github.com/sticklight/sticklight-ts/issues"
   },
-  "homepage": "https://sticklight.com"
-} 
+  "homepage": "https://sticklight.io"
+}

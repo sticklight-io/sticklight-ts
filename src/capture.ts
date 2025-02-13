@@ -1,17 +1,32 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { STICKLIGHT_API_BASE_URL } from "./consts";
 import { resolveSticklightApiKey } from "./auth";
 
+
 export interface CaptureOptions {
-  sticklightApiKey?: string;
+  /**
+   * The Sticklight API key to use. If not provided, will be resolved from session storage.
+   * @see {@link resolveSticklightApiKey}
+   */
+  $sticklightApiKey?: string;
+  [key: string]: unknown;
 }
 
-export async function capture(data: Record<string, unknown>, options: CaptureOptions = {}) {
-  const apiKey = resolveSticklightApiKey(options.sticklightApiKey);
+/**
+ * Publish an event to Sticklight API.
+ * 
+ * @param {number} eventName - The name of the event to publish
+ * @param {CaptureOptions} data - Additional data to publish with the event. If `$sticklightApiKey` is included, it will be used as the API key.
+ * @returns {Promise<AxiosResponse>} A promise that resolves with the API response
+ */
+export async function capture(eventName: string, data: CaptureOptions): Promise<AxiosResponse> {
+  const { $sticklightApiKey, ...dataWithoutApiKey } = data;
+  const apiKey = resolveSticklightApiKey($sticklightApiKey);
+  const requestBody = {event_name: eventName, data: dataWithoutApiKey};
   
   const response = await axios.post(
     `${STICKLIGHT_API_BASE_URL}/events-collect/v1/events`,
-    [data],
+    requestBody,
     {
       headers: {
         accept: "application/json",
@@ -22,4 +37,4 @@ export async function capture(data: Record<string, unknown>, options: CaptureOpt
   );
 
   return response;
-} 
+}

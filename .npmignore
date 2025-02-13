@@ -1,0 +1,24 @@
+# Source
+src/
+
+# Tests
+tests/
+*.test.ts
+*.spec.ts
+vitest.config.*
+
+# Config files
+tsconfig.json
+biome.json
+.github/
+.git/
+.gitignore
+.DS_Store
+
+# IDE
+*.code-workspace
+.vscode/
+.idea/
+
+# Build process
+tsup.config.ts 

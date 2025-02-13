@@ -3,15 +3,33 @@
 		"target": "ES2020",
 		"module": "ESNext",
 		"lib": [
-			"ES2020"
+			"ES2020",
+			"DOM"
 		],
-		"moduleResolution": "node",
-		"outDir": "./dist",
-		"strict": true,
+		"allowSyntheticDefaultImports": true,
+		"alwaysStrict": true,
+		"declaration": true,
 		"esModuleInterop": true,
-		"skipLibCheck": true,
+		// exactOptionalPropertyTypes: `property?` does NOT allow `undefined` value. 
+		//  Instead, it can either satisfy the type or NOT BE in the object at all. 🪖
+		"exactOptionalPropertyTypes": true,
 		"forceConsistentCasingInFileNames": true,
-		"declaration": true
+		"moduleResolution": "node",
+		"noUncheckedIndexedAccess": true,
+		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"outDir": "./dist",
+		"skipLibCheck": true,
+		"strict": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"useUnknownInCatchVariables": true,
+		"pretty": true,
+		"preserveWatchOutput": true
 	},
 	"include": [
 		"src"
