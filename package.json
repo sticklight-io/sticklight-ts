@@ -12,8 +12,7 @@
     "// compile": "// Also builds the dist package.",
     "compile": "tsup --minify terser",
     "dev": "tsup --watch",
-    "test": "vitest",
-    "test:watch": "vitest watch",
+    "test": "vitest watch --config tests/vitest.config.ts",
     "format": "biome format .",
     "lint": "biome lint .",
     "preversion": "npm run lint && npm test",
@@ -41,10 +40,12 @@
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "@types/node": "^20.11.19",
+    "@vitest/ui": "^3.0.5",
+    "happy-dom": "^17.1.0",
     "terser": "^5.39.0",
     "tsup": "^8.0.2",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
+    "vitest": "^1.6.1"
   },
   "author": "Sticklight",
   "license": "Apache-2.0",

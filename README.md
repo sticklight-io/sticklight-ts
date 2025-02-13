@@ -17,9 +17,11 @@ pnpm add sticklight
 ```typescript
 import * as sl from 'sticklight';
 
+// Initialize the SDK with your API key
+sl.init("your-api-key");
+
 // Publish an event
-sl.capture({
-    event_name: "user_message",
+sl.capture("user_started_chat", {
     user_id: "user_123",
     message: "I need help with this and that feature",
     // ... Any other data you want to track
@@ -30,22 +32,21 @@ sl.capture({
 
 You'll need a Sticklight API key to use this SDK. You can either:
 
-1. Set it as an environment variable:
-   ```bash
-   export STICKLIGHT_API_KEY="your-api-key"
-   ```
-
-2. Pass it directly to the capture function:
+1. Call `sl.init` once with your API key:
    ```typescript
-   sl.capture(data, { sticklightApiKey: "your-api-key" });
+   sl.init("your-api-key");
    ```
 
-To get your API key, go to the [Sticklight Platform] and create a new key.
+2. Pass it directly to the `sl.capture` function:
+   ```typescript
+   sl.capture("user_started_chat", { $sticklightApiKey: "your-api-key", ... });
+   ```
+
+To create an API key, go to the [Sticklight Platform].
 
 ## Requirements
 
 - Node.js 18 or higher
-- TypeScript 5.0 or higher (when using TypeScript)
 
 ## About Sticklight
 
@@ -89,7 +90,7 @@ pnpm build
 
 ## License
 
-MIT
+Apache 2.0
 
 ## Support
 
@@ -98,4 +99,4 @@ MIT
 - Email: hello@sticklight.io
 - [Book a demo](https://calendly.com/matan-sticklight/30min)
 
-[Sticklight Platform]: https://platform.sticklight.io/sticklight/settings?section=team&subSection=api-keys
+[Sticklight Platform]: https://platform.sticklight.io
