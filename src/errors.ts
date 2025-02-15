@@ -9,4 +9,4 @@ export class SticklightApiKeyNotFoundError extends Error {
     super(message);
     this.name = "SticklightApiKeyNotFoundError";
   }
-} 
+}

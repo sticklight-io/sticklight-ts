@@ -1,42 +1,33 @@
 {
-	"compilerOptions": {
-		"target": "ES2020",
-		"module": "ESNext",
-		"lib": [
-			"ES2020",
-			"DOM"
-		],
-		"allowSyntheticDefaultImports": true,
-		"alwaysStrict": true,
-		"declaration": true,
-		"esModuleInterop": true,
-		// exactOptionalPropertyTypes: `property?` does NOT allow `undefined` value. 
-		//  Instead, it can either satisfy the type or NOT BE in the object at all. 🪖
-		"exactOptionalPropertyTypes": true,
-		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "node",
-		"noUncheckedIndexedAccess": true,
-		"noImplicitAny": true,
-		"noImplicitOverride": true,
-		"noImplicitReturns": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"outDir": "./dist",
-		"skipLibCheck": true,
-		"strict": true,
-		"strictBindCallApply": true,
-		"strictFunctionTypes": true,
-		"strictNullChecks": true,
-		"useUnknownInCatchVariables": true,
-		"pretty": true,
-		"preserveWatchOutput": true
-	},
-	"include": [
-		"src"
-	],
-	"exclude": [
-		"node_modules",
-		"dist",
-		"tests"
-	]
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM"],
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    // exactOptionalPropertyTypes: `property?` does NOT allow `undefined` value.
+    //  Instead, it can either satisfy the type or NOT BE in the object at all. 🪖
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "noUncheckedIndexedAccess": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "useUnknownInCatchVariables": true,
+    "pretty": true,
+    "preserveWatchOutput": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "tests"]
 }

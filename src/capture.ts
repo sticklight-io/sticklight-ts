@@ -1,7 +1,6 @@
-import axios, { AxiosResponse } from "axios";
-import store from "./sessionStore";
+import axios, { type AxiosResponse } from "axios";
 import { resolveSticklightApiKey } from "./auth";
-
+import store from "./sessionStore";
 
 export interface CaptureOptions {
   /**
@@ -14,12 +13,15 @@ export interface CaptureOptions {
 
 /**
  * Publish an event to Sticklight API.
- * 
+ *
  * @param {number} eventName - Name of the event to publish
  * @param {CaptureOptions} data - Additional data to publish with the event. If `$sticklightApiKey` is included, it will be used as the API key.
  * @returns {Promise<AxiosResponse>} Promise resolving to the API response
  */
-export async function capture(eventName: string, data: CaptureOptions): Promise<AxiosResponse> {
+export async function capture(
+  eventName: string,
+  data: CaptureOptions
+): Promise<AxiosResponse> {
   const { $sticklightApiKey, ...dataWithoutApiKey } = data;
   const apiKey = resolveSticklightApiKey($sticklightApiKey);
   console.log("[capture] apiKey:", apiKey);
@@ -55,5 +57,5 @@ export async function capture(eventName: string, data: CaptureOptions): Promise<
     throw error;
   } finally {
     console.log("[capture] finally");
-  }  
+  }
 }

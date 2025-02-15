@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeAll } from "vitest";
-import { init, capture } from "../src";
-import store from "../src/sessionStore";
 import { beforeEach } from "node:test";
+import { beforeAll, describe, expect, it } from "vitest";
+import { capture, init } from "../src";
+import store from "../src/sessionStore";
 const STICKLIGHT_API_KEY = process.env.STICKLIGHT_API_KEY!;
 
 describe("init.sticklightApiKey", () => {
