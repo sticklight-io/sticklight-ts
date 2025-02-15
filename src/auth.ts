@@ -1,4 +1,5 @@
 import { SticklightApiKeyNotFoundError } from "./errors";
+import store from "./sessionStore";
 
 /**
  * Resolve the Sticklight API key with the following order of precedence:
@@ -15,10 +16,10 @@ export function resolveSticklightApiKey(sticklightApiKey?: string): string {
     return sticklightApiKey;
   }
 
-  const sessionApiKey = sessionStorage.getItem("sticklight_api_key");
+  const sessionApiKey = store.getApiKey();
   if (!sessionApiKey) {
     throw new SticklightApiKeyNotFoundError(
-      "Sticklight API key not found. Either call sticklight.init() with the API key at the start of your application or pass it to the capture function."
+      "Sticklight API key not found. Either call sticklight.init() with the API key at the start of your application or pass it to the sticklight.capture() function."
     );
   }
 
