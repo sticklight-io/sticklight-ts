@@ -10,21 +10,17 @@ describe("capture", () => {
   });
 
   it("Should raise error when API key not found", () => {
-    const originalApiKey = store.getApiKey();
     store.setApiKey("");
     expect(() => capture("test", { foo: "bar" })).rejects.toThrow();
-    store.setApiKey(originalApiKey as string);
+    store.setApiKey(STICKLIGHT_API_KEY as string);
   });
 
-  it("Should not error when API key provided in data", async () => {
-    const originalApiKey = store.getApiKey();
-    store.setApiKey("");
+  it("Should not error when API key provided in settings", async () => {
     await capture(
       "test",
       { foo: "bar" },
       { sticklightApiKey: STICKLIGHT_API_KEY }
     );
-    store.setApiKey(originalApiKey as string);
   });
 
   it("Should return the response from the API", async () => {
@@ -36,6 +32,5 @@ describe("capture", () => {
     expect(response).toBeDefined();
     expect(response.status).toBe(200);
     expect(response.data).toBeDefined();
-    console.log(response.data);
   });
 });

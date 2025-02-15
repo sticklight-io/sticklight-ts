@@ -197,11 +197,11 @@ export function parseErrorResponse(
     return new SticklightExternalServiceError(message, status, data);
   }
 
-  // Server errors
+  if (status === 504) {
+    return new SticklightTimeoutError(message, status, data);
+  }
+  
   if (status >= 500 && status < 600) {
-    if (status === 504) {
-      return new SticklightTimeoutError(message, status, data);
-    }
     return new SticklightServerError(message, status, data);
   }
 
