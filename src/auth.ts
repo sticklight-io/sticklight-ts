@@ -5,10 +5,10 @@ import store from "./sessionStore";
  * Resolve the Sticklight API key with the following order of precedence:
  * 1. Value passed to the function
  * 2. Value stored in session storage
- * 3. Raise an error
+ * 3. If no API key could be resolved, throw an error
  *
- * @param sticklightApiKey - Optional API key to use
- * @returns The resolved Sticklight API key
+ * @param {string} [sticklightApiKey] - Optional API key to use
+ * @returns {string} The resolved Sticklight API key
  * @throws {SticklightApiKeyNotFoundError} If no API key could be resolved
  */
 export function resolveSticklightApiKey(sticklightApiKey?: string): string {

@@ -3,6 +3,14 @@
   "organizeImports": {
     "enabled": true
   },
+  "files": {
+    "ignore": ["tests/vitest.config.ts", "tsup.config.ts"]
+  },
+  "vcs": {
+    "enabled": true,
+    "useIgnoreFile": true,
+    "clientKind": "git"
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -13,7 +21,8 @@
         "all": true
       },
       "style": {
-        "all": true
+        "all": true,
+        "useNamingConvention": "off"
       },
       "recommended": true,
       "correctness": {
@@ -36,7 +45,7 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "double",
-      "trailingComma": "es5"
+      "trailingCommas": "es5"
     }
   }
 }

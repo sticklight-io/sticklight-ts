@@ -1,30 +1,43 @@
 import axios, { type AxiosResponse } from "axios";
 import { resolveSticklightApiKey } from "./auth";
+import {
+  SticklightAuthenticationError,
+  SticklightServerError,
+  parseErrorResponse,
+} from "./errors";
+import type { AxiosErrorResponse } from "./errors";
+import type { init } from "./init";
 import store from "./sessionStore";
 
-export interface CaptureOptions {
+export interface CaptureSettings {
   /**
-   * The Sticklight API key to use. If not provided, will be resolved from session storage.
+   * If not provided, will be resolved from session storage.
    * @see {@link resolveSticklightApiKey}
    */
-  $sticklightApiKey?: string;
-  [key: string]: unknown;
+  sticklightApiKey?: string;
 }
 
+export type CaptureData = {
+  [key: string]: unknown;
+} & {
+  [K in keyof CaptureSettings]: never;
+};
+
 /**
- * Publish an event to Sticklight API.
+ * Capture an event with Sticklight API.
+ * Either provide the API key in {@link CaptureSettings captureSettings} or call {@link init} first.
  *
  * @param {number} eventName - Name of the event to publish
- * @param {CaptureOptions} data - Additional data to publish with the event. If `$sticklightApiKey` is included, it will be used as the API key.
- * @returns {Promise<AxiosResponse>} Promise resolving to the API response
+ * @param {CaptureData} data - Data to publish with the event
+ * @param {CaptureSettings} captureSettings - E.g. optional API key, with session storage fallback
  */
 export async function capture(
   eventName: string,
-  data: CaptureOptions
+  data: CaptureData,
+  captureSettings: CaptureSettings = {}
 ): Promise<AxiosResponse> {
   const { $sticklightApiKey, ...dataWithoutApiKey } = data;
-  const apiKey = resolveSticklightApiKey($sticklightApiKey);
-  console.log("[capture] apiKey:", apiKey);
+  const apiKey = resolveSticklightApiKey(captureSettings.sticklightApiKey);
   const requestBody = [{ event_name: eventName, data: dataWithoutApiKey }];
 
   try {
@@ -37,25 +50,18 @@ export async function capture(
           "x-api-key": apiKey,
         },
         timeout: 30000,
-        // transformRequest: (data) => {
-        //   console.log("[capture] request:", data);
-        //   return data;
-        // },
-        // transformResponse: (data) => {
-        //   console.log("[capture] response:", data);
-        //   return data;
-        // },
         responseType: "json",
         validateStatus: (status) => {
-          console.log("[capture] status:", status);
           return status >= 200 && status < 300;
         },
       }
     );
   } catch (error) {
-    console.error("[capture] error:", error);
-    throw error;
-  } finally {
-    console.log("[capture] finally");
+    if (error instanceof SticklightServerError) {
+      // Handle server errors (any 5xx)
+    } else if (error instanceof SticklightAuthenticationError) {
+      // Handle auth issues specifically
+    }
+    throw parseErrorResponse(error as AxiosErrorResponse);
   }
 }
