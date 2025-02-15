@@ -9,6 +9,7 @@ import type { AxiosErrorResponse } from "./errors";
 import type { init } from "./init";
 import store from "./sessionStore";
 
+/** Sticklight capture request settings. */
 export interface CaptureSettings {
   /**
    * If not provided, will be resolved from session storage.
@@ -36,9 +37,8 @@ export async function capture(
   data: CaptureData,
   captureSettings: CaptureSettings = {}
 ): Promise<AxiosResponse> {
-  const { $sticklightApiKey, ...dataWithoutApiKey } = data;
   const apiKey = resolveSticklightApiKey(captureSettings.sticklightApiKey);
-  const requestBody = [{ event_name: eventName, data: dataWithoutApiKey }];
+  const requestBody = [{ event_name: eventName, data }];
 
   try {
     return await axios.post(
@@ -57,11 +57,6 @@ export async function capture(
       }
     );
   } catch (error) {
-    if (error instanceof SticklightServerError) {
-      // Handle server errors (any 5xx)
-    } else if (error instanceof SticklightAuthenticationError) {
-      // Handle auth issues specifically
-    }
     throw parseErrorResponse(error as AxiosErrorResponse);
   }
 }

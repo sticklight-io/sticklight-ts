@@ -28,7 +28,11 @@ describe("capture", () => {
   });
 
   it("Should return the response from the API", async () => {
-    const response = await capture("test", { foo: "bar" });
+    const response = await capture(
+      "test",
+      { foo: "bar" },
+      { sticklightApiKey: STICKLIGHT_API_KEY }
+    );
     expect(response).toBeDefined();
     expect(response.status).toBe(200);
     expect(response.data).toBeDefined();
