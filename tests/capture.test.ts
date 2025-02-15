@@ -20,5 +20,4 @@ describe('capture', () => {
     it('Should not error when API key provided in data', async () => {
         await capture('test', { foo: 'bar', $sticklightApiKey: STICKLIGHT_API_KEY });
     });
-    
-}); 
+});
