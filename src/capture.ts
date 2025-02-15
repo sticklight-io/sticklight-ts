@@ -22,19 +22,38 @@ export interface CaptureOptions {
 export async function capture(eventName: string, data: CaptureOptions): Promise<AxiosResponse> {
   const { $sticklightApiKey, ...dataWithoutApiKey } = data;
   const apiKey = resolveSticklightApiKey($sticklightApiKey);
-  const requestBody = [{event_name: eventName, data: dataWithoutApiKey}];
-  
-  const response = await axios.post(
-    `${store.getApiBaseUrl()}/events-collect/v1/events`,
-    requestBody,
-    {
-      headers: {
-        accept: "application/json",
-        "x-api-key": apiKey,
-      },
-      timeout: 30000,
-    }
-  );
+  console.log("[capture] apiKey:", apiKey);
+  const requestBody = [{ event_name: eventName, data: dataWithoutApiKey }];
 
-  return response;
+  try {
+    return await axios.post(
+      `${store.getApiBaseUrl()}/events-collect/v1/events`,
+      requestBody,
+      {
+        headers: {
+          accept: "application/json",
+          "x-api-key": apiKey,
+        },
+        timeout: 30000,
+        // transformRequest: (data) => {
+        //   console.log("[capture] request:", data);
+        //   return data;
+        // },
+        // transformResponse: (data) => {
+        //   console.log("[capture] response:", data);
+        //   return data;
+        // },
+        responseType: "json",
+        validateStatus: (status) => {
+          console.log("[capture] status:", status);
+          return status >= 200 && status < 300;
+        },
+      }
+    );
+  } catch (error) {
+    console.error("[capture] error:", error);
+    throw error;
+  } finally {
+    console.log("[capture] finally");
+  }  
 }
