@@ -17,7 +17,7 @@ pnpm add sticklight
 ```typescript
 import * as sl from 'sticklight';
 
-// Initialize the SDK with your API key
+// Authenticate with your API key
 sl.init("your-api-key");
 
 // Publish an event
@@ -27,20 +27,6 @@ sl.capture("user_started_chat", {
     // ... Any other data you want to track
 });
 ```
-
-## Authentication
-
-You'll need a Sticklight API key to use this SDK. You can either:
-
-1. Call `sl.init` once with your API key:
-   ```typescript
-   sl.init("your-api-key");
-   ```
-
-2. Pass it directly to the `sl.capture` function:
-   ```typescript
-   sl.capture("user_started_chat", { $sticklightApiKey: "your-api-key", ... });
-   ```
 
 To create an API key, go to the [Sticklight Platform].
 
