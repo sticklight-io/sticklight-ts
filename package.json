@@ -1,6 +1,6 @@
 {
   "name": "@sticklight/sdk",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "The Official Sticklight TypeScript SDK",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -8,7 +8,7 @@
   "files": ["dist"],
   "scripts": {
     "// compile": "// Also builds the dist package.",
-    "compile": "tsup --minify terser",
+    "compile": "npm run ci:typecheck && tsup --minify terser",
     "dev": "tsup --watch",
     "test": "vitest watch --config tests/vitest.config.ts",
     "format": "biome format .",
