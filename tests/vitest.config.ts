@@ -10,6 +10,7 @@ export default defineConfig({
     includeTaskLocation: true,
     reporters: ["verbose"],
     testTimeout: 30000,
+    setupFiles: ['dotenv/config'],
   },
   clearScreen: false,
 });

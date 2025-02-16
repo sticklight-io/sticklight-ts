@@ -17,13 +17,6 @@ interface ErrorResponseData {
   error_type?: string;
   error_class?: string; // Backend error class name (e.g., KeyError, TypeError)
   action_hint?: string; // Suggested action for the user
-  debug_info?: {
-    // Additional debugging information
-    error_class?: string;
-    error_message?: string;
-    endpoint?: string;
-    [key: string]: unknown;
-  };
 }
 
 export class SticklightRequestError extends SticklightError {
@@ -56,7 +49,6 @@ export class SticklightRequestError extends SticklightError {
       this.errorType = responseData.error_type;
       this.errorClass = responseData.error_class;
       this.actionHint = responseData.action_hint;
-      this.debugInfo = responseData.debug_info;
     }
   }
 
@@ -145,7 +137,7 @@ export function parseErrorResponse(
 ): SticklightRequestError {
   const response = error.response;
   if (!response) {
-    console.error("No error.response from Axios", error);
+    console.error("No 'error.response' from Axios", error);
     throw error;
   }
 
@@ -169,6 +161,8 @@ export function parseErrorResponse(
         return new SticklightDatabaseError(message, status, data);
       case "ExternalServiceError":
         return new SticklightExternalServiceError(message, status, data);
+      default:
+        return new SticklightServerError(message, status, data);
     }
   }
 
@@ -200,7 +194,7 @@ export function parseErrorResponse(
   if (status === 504) {
     return new SticklightTimeoutError(message, status, data);
   }
-  
+
   if (status >= 500 && status < 600) {
     return new SticklightServerError(message, status, data);
   }

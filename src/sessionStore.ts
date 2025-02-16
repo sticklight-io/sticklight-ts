@@ -16,9 +16,10 @@ export const store = {
     );
   },
 
-  setApiBaseUrl(apiBaseUrl: string): string {
-    sessionStorage.setItem("sticklight_api_base_url", apiBaseUrl);
-    return apiBaseUrl;
+  setApiBaseUrl(apiBaseUrl?: string): string {
+    const baseUrl = apiBaseUrl ?? DEFAULT_API_BASE_URL;
+    sessionStorage.setItem("sticklight_api_base_url", baseUrl);
+    return baseUrl;
   },
 };
 

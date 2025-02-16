@@ -11,5 +11,5 @@ import type { DEFAULT_API_BASE_URL } from "./sessionStore";
  */
 export function init(sticklightApiKey: string, sticklightApiBaseUrl?: string) {
   store.setApiKey(sticklightApiKey);
-  sticklightApiBaseUrl && store.setApiBaseUrl(sticklightApiBaseUrl);
+  store.setApiBaseUrl(sticklightApiBaseUrl);
 }

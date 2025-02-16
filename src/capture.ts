@@ -1,47 +1,26 @@
-import axios, { type AxiosResponse } from "axios";
+import axios from "axios";
 import { resolveSticklightApiKey } from "./auth";
-import {
-  SticklightAuthenticationError,
-  SticklightServerError,
-  parseErrorResponse,
-} from "./errors";
+import { parseErrorResponse } from "./errors";
 import type { AxiosErrorResponse } from "./errors";
 import type { init } from "./init";
 import store from "./sessionStore";
 
-/** Sticklight capture request settings. */
-export interface CaptureSettings {
-  /**
-   * If not provided, will be resolved from session storage.
-   * @see {@link resolveSticklightApiKey}
-   */
-  sticklightApiKey?: string;
-}
-
-export type CaptureData = {
-  [key: string]: unknown;
-} & {
-  [K in keyof CaptureSettings]: never;
-};
-
 /**
  * Capture an event with Sticklight API.
- * Either provide the API key in {@link CaptureSettings captureSettings} or call {@link init} first.
+ * Requires that {@link init} has already been called with the API key.
  *
- * @param {number} eventName - Name of the event to publish
- * @param {CaptureData} data - Data to publish with the event
- * @param {CaptureSettings} captureSettings - E.g. optional API key, with session storage fallback
+ * @param {string} eventName - Name of the event to publish
+ * @param {Record<string, unknown>} [data] - Data to publish with the event
  */
 export async function capture(
   eventName: string,
-  data: CaptureData,
-  captureSettings: CaptureSettings = {}
-): Promise<AxiosResponse> {
-  const apiKey = resolveSticklightApiKey(captureSettings.sticklightApiKey);
+  data: Record<string, unknown> = {}
+): Promise<void> {
+  const apiKey = resolveSticklightApiKey();
   const requestBody = [{ event_name: eventName, data }];
 
   try {
-    return await axios.post(
+    return axios.post(
       `${store.getApiBaseUrl()}/events-collect/v1/events`,
       requestBody,
       {

@@ -1,5 +1,5 @@
 import { beforeEach } from "node:test";
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { capture, init } from "../src";
 import store from "../src/sessionStore";
 const STICKLIGHT_API_KEY = process.env.STICKLIGHT_API_KEY;
@@ -13,6 +13,7 @@ describe("init.sticklightApiKey", () => {
     store.setApiBaseUrl("https://api.platform.sticklight.io");
   };
   beforeEach(resetStore);
+  afterAll(resetStore);
 
   it("Should set to store", () => {
     init("test-api-key");
