@@ -36,6 +36,6 @@ export async function capture(
       }
     );
   } catch (error) {
-    throw parseErrorResponse(error as AxiosErrorResponse);
+    console.error(parseErrorResponse(error as AxiosErrorResponse));
   }
 }
