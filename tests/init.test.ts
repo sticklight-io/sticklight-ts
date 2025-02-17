@@ -4,7 +4,7 @@ import { capture, init } from "../src";
 import store from "../src/sessionStore";
 const STICKLIGHT_API_KEY = process.env.STICKLIGHT_API_KEY;
 
-describe("init.sticklightApiKey", () => {
+describe("init.apiKey", () => {
   beforeAll(() => {
     expect(STICKLIGHT_API_KEY).length.above(0);
   });
@@ -31,12 +31,13 @@ describe("init.sticklightApiKey", () => {
   });
 });
 
-describe("init.sticklightApiBaseUrl", () => {
+describe("init.apiBaseUrl", () => {
   const resetStore = () => {
-    store.setApiKey("");
+    store.setApiKey(STICKLIGHT_API_KEY as string);
     store.setApiBaseUrl("https://api.platform.sticklight.io");
   };
   beforeEach(resetStore);
+  afterAll(resetStore);
 
   it("Should set to store", () => {
     init("test-api-key", "test-base-url");
@@ -48,12 +49,10 @@ describe("init.sticklightApiBaseUrl", () => {
   });
 
   it('Should dictate which default API base URL "capture" uses make it fail', () => {
-    init(STICKLIGHT_API_KEY as string, "BAD_BASE_URL");
     expect(capture("test", { should: "fail" })).rejects.toThrow();
   });
 
   it("Should dictate which default API base URL 'capture' uses and make it succeed", () => {
-    init(STICKLIGHT_API_KEY as string);
     expect(capture("test", { should: "succeed" })).resolves.toBeDefined();
   });
 });
