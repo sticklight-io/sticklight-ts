@@ -10,7 +10,7 @@
     "// compile": "// Also builds the dist package.",
     "compile": "npm run ci:typecheck && tsup --minify terser",
     "dev": "tsup --watch",
-    "test": "vitest watch --config tests/vitest.config.ts",
+    "test": "vitest watch --config tests/vitest.config.ts  // --typecheck (false by default)",
     "format": "biome format .",
     "lint": "biome lint .",
     "preversion": "npm run lint && npm test",
