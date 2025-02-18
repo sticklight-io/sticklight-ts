@@ -19,7 +19,7 @@ export function resolveSticklightApiKey(apiKey?: string): string {
   const sessionApiKey = store.getApiKey();
   if (!sessionApiKey) {
     throw new SticklightApiKeyNotFoundError(
-      "Sticklight API key not found. Either call sticklight.init() with the API key at the start of your application or pass it to the sticklight.capture() function."
+      "Sticklight API key not found. You should call sticklight.init() with the API key at the start of your application."
     );
   }
 
