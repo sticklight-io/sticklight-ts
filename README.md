@@ -5,11 +5,9 @@ The official TypeScript SDK for [Sticklight](https://sticklight.io).
 ## Installation
 
 ```bash
-npm install sticklight
+npm install @sticklight/sdk
 # or
-yarn add sticklight
-# or
-pnpm add sticklight
+yarn add @sticklight/sdk
 ```
 
 ## Quick Start
@@ -23,7 +21,7 @@ sl.init("your-api-key");
 // Publish an event
 sl.capture("user_started_chat", {
     user_id: "user_123",
-    message: "I need help with this and that feature",
+    message: "I need help with your new feature",
     // ... Any other data you want to track
 });
 ```
@@ -48,29 +46,23 @@ Think of it as product analytics, but specifically designed for the unique chall
 
 ```bash
 # Clone the repository
-git clone https://github.com/sticklight/sticklight-ts.git
+git clone https://github.com/sticklight-io/sticklight-ts.git
 cd sticklight-ts
 
 # Install dependencies
 npm install
 # or
 yarn install
-# or
-pnpm install
 
 # Run tests
 npm test
 # or
 yarn test
-# or
-pnpm test
 
 # Build the package
 npm run build
 # or
 yarn build
-# or
-pnpm build
 ```
 
 ## License
@@ -80,8 +72,8 @@ Apache 2.0
 ## Support
 
 - Documentation: [docs.sticklight.io](https://docs.sticklight.io)
-- Issues: [GitHub Issues](https://github.com/sticklight/sticklight-ts/issues)
-- Email: hello@sticklight.io
+- Issues: [GitHub Issues](https://github.com/sticklight-io/sticklight-ts/issues)
+- Email: support@sticklight.io
 - [Book a demo](https://calendly.com/matan-sticklight/30min)
 
 [Sticklight Platform]: https://platform.sticklight.io
