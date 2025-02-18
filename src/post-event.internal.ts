@@ -2,8 +2,9 @@ import axios from "axios";
 import { resolveSticklightApiKey } from "./auth";
 import { parseErrorResponse } from "./errors";
 import type { AxiosErrorResponse } from "./errors";
-import store from "./sessionStore";
-const safeGetWindowData = () => {
+import store from "./session-store";
+
+const safeGetWindowData = (): Record<string, unknown> => {
   if (typeof window === "undefined") {
     return {};
   }
@@ -14,7 +15,7 @@ const safeGetWindowData = () => {
   };
 };
 
-const safeGetNavigatorData = () => {
+const safeGetNavigatorData = (): Record<string, unknown> => {
   if (typeof navigator === "undefined") {
     return {};
   }
@@ -32,7 +33,7 @@ const safeGetNavigatorData = () => {
     "userActivation.isActive": navigator.userActivation?.isActive,
   };
 };
-const safeGetBrowserData = () => {
+const safeGetBrowserData = (): Record<string, unknown> => {
   try {
     return {
       ...safeGetWindowData(),
@@ -44,21 +45,26 @@ const safeGetBrowserData = () => {
   }
 };
 
-const enrichMetaData = (
-  data: Record<string, unknown>
-): Record<string, unknown> => {
+const enrichMetaData = <T extends Record<string, unknown>>(
+  data: T
+): T & { meta: Record<string, unknown> } => {
   const meta = {
     browser: safeGetBrowserData(),
     sessionId: store.getSessionId(),
     user: store.getCurrentUser(),
   };
 
+  // TODO(performance): avoid creating a new object
+  const dataWithMeta: T & { meta: Record<string, unknown> } = {
+    meta: {},
+    ...data,
+  };
   if (data.meta) {
-    data.meta = { ...meta, ...data.meta };
+    dataWithMeta.meta = { ...meta, ...dataWithMeta.meta };
   } else {
-    data.meta = meta;
+    dataWithMeta.meta = meta;
   }
-  return data;
+  return dataWithMeta;
 };
 
 /** Low-level function making the HTTP request to the Sticklight API.

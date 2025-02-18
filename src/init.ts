@@ -1,10 +1,11 @@
 import { postEvent } from "./post-event.internal";
-import store from "./sessionStore";
-import type { DEFAULT_API_BASE_URL } from "./sessionStore";
+import store from "./session-store";
+import type { DEFAULT_API_BASE_URL } from "./session-store";
 
 async function getUniqueSessionId(): Promise<string> {
   try {
     const snapshot = await navigator.locks.query();
+    // @ts-ignore: it's ok if clientId doesn't exist because we're in a try block
     return snapshot.clientId;
   } catch (error) {
     console.warn("Web Locks API failed, falling back to random UUID.", error);
@@ -35,7 +36,7 @@ export async function init(apiKey: string, apiBaseUrl?: string): Promise<void> {
     store.setSessionId(sessionId);
   }
 
-  // TODO: Include api key?
+  // TODO(product): Include api key?
 
   postEvent("sticklight_init", {
     sessionId,

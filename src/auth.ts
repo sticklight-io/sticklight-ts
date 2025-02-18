@@ -1,5 +1,5 @@
 import { SticklightApiKeyNotFoundError } from "./errors";
-import store from "./sessionStore";
+import store from "./session-store";
 
 /**
  * Resolve the Sticklight API key with the following order of precedence:

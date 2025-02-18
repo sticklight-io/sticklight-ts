@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { capture, init } from "../src";
 import { SticklightApiKeyNotFoundError } from "../src/errors";
-import store from "../src/sessionStore";
+import store from "../src/session-store";
 
 const STICKLIGHT_API_KEY = process.env.STICKLIGHT_API_KEY;
 

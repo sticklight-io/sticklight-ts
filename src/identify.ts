@@ -1,5 +1,5 @@
 import { postEvent } from "./post-event.internal";
-import store, { type User } from "./sessionStore";
+import store, { type User } from "./session-store";
 
 /**
  * Identify a user for the current session.
