@@ -21,6 +21,37 @@ export const store = {
     sessionStorage.setItem("sticklight_api_base_url", baseUrl);
     return baseUrl;
   },
+
+  getSessionId(): string | null {
+    return sessionStorage.getItem("sticklight_session_id");
+  },
+
+  setSessionId(sessionId: string): string {
+    sessionStorage.setItem("sticklight_session_id", sessionId);
+    return sessionId;
+  },
+
+  getCurrentUser(): User | null {
+    const currentUser = sessionStorage.getItem("sticklight_current_user");
+    return currentUser ? JSON.parse(currentUser) : null;
+  },
+
+  setCurrentUser(uniqueId: string, userData: Record<string, unknown>): User {
+    const currentUser: User = {
+      id: uniqueId,
+      ...userData,
+    };
+    sessionStorage.setItem(
+      "sticklight_current_user",
+      JSON.stringify(currentUser)
+    );
+    return currentUser;
+  },
 };
+
+export interface User {
+  id: string;
+  [key: string]: unknown;
+}
 
 export default store;
