@@ -1,0 +1,1 @@
+docker run --rm -v ${PWD}:/mnt ghcr.io/gitleaks/gitleaks:v8.23.3 git /mnt
