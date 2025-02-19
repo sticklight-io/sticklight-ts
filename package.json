@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "// compile": "// Also builds the dist package.",
     "compile": "npm run ci:typecheck && tsup --minify terser",
@@ -15,7 +17,8 @@
     "lint": "biome lint .",
     "publish": "npm run compile && npm publish",
     "// ci:typecheck": "// For CI. 'npm run dev' already does typechecking (dts:true in tsup.config.ts)",
-    "ci:typecheck": "tsc --noEmit"
+    "ci:typecheck": "tsc --noEmit",
+    "prepare": "husky"
   },
   "keywords": [
     "sticklight",
@@ -38,13 +41,14 @@
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "@types/node": "^20.11.19",
-    "@vitest/ui": "^3.0.5",
+    "@vitest/ui": "^3.0.6",
     "dotenv": "^16.4.7",
     "happy-dom": "^17.1.0",
+    "husky": "^9.1.7",
     "terser": "^5.39.0",
     "tsup": "^8.0.2",
     "typescript": "^5.3.3",
-    "vitest": "^1.6.1"
+    "vitest": "^3.0.6"
   },
   "author": "Sticklight",
   "license": "Apache-2.0",
