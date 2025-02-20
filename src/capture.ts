@@ -1,3 +1,4 @@
+import type { AxiosResponse } from "axios";
 import { postEvent } from "./post-event.internal";
 
 /**
@@ -10,6 +11,6 @@ import { postEvent } from "./post-event.internal";
 export async function capture(
   eventName: string,
   data: Record<string, unknown> = {}
-): Promise<void> {
-  return postEvent(eventName, data);
+): Promise<AxiosResponse | null> {
+  return await postEvent(eventName, data);
 }

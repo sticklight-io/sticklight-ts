@@ -1,7 +1,6 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import { resolveSticklightApiKey } from "./auth";
-import { parseErrorResponse } from "./errors";
-import type { AxiosErrorResponse } from "./errors";
+import { type AxiosErrorResponse, parseErrorResponse } from "./errors";
 import { store } from "./session-store";
 
 const safeGetWindowData = (): Record<string, unknown> => {
@@ -78,12 +77,12 @@ const enrichMetaData = <T extends Record<string, unknown>>(
 export async function postEvent(
   eventName: string,
   data: Record<string, unknown> = {}
-): Promise<void> {
+): Promise<AxiosResponse | null> {
   const apiKey = resolveSticklightApiKey();
   const requestBody = [{ event_name: eventName, ...enrichMetaData(data) }];
 
   try {
-    return axios.post(
+    return await axios.post(
       `${store.getApiBaseUrl()}/events-collect/v1/events`,
       requestBody,
       {
@@ -100,5 +99,6 @@ export async function postEvent(
     );
   } catch (error) {
     console.error(parseErrorResponse(error as AxiosErrorResponse));
+    return null;
   }
 }
