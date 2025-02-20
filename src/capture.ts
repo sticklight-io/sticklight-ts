@@ -1,12 +1,11 @@
-import type { init } from "./init";
 import { postEvent } from "./post-event.internal";
 
 /**
  * Capture an event with Sticklight API.
- * Requires that {@link init} has already been called with the API key.
+ * Requires that {@link [init](init.ts)} has already been called with the API key.
  *
  * @param {string} eventName - Name of the event to publish
- * @param {Record<string, unknown>} [data] - Data to publish with the event
+ * @param {Record<string, unknown>} [data] - Optional data to publish with the event
  */
 export async function capture(
   eventName: string,

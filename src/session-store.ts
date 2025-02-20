@@ -1,4 +1,4 @@
-export const DEFAULT_API_BASE_URL = "https://api.platform.sticklight.io";
+import { DEFAULT_API_BASE_URL } from "./consts";
 
 export const store = {
   getApiKey(): string | null {
@@ -53,5 +53,3 @@ export interface User {
   id: string;
   [key: string]: unknown;
 }
-
-export default store;

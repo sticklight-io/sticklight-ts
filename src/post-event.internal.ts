@@ -2,7 +2,7 @@ import axios from "axios";
 import { resolveSticklightApiKey } from "./auth";
 import { parseErrorResponse } from "./errors";
 import type { AxiosErrorResponse } from "./errors";
-import store from "./session-store";
+import { store } from "./session-store";
 
 const safeGetWindowData = (): Record<string, unknown> => {
   if (typeof window === "undefined") {
@@ -21,13 +21,17 @@ const safeGetNavigatorData = (): Record<string, unknown> => {
   }
   return {
     userAgent: navigator.userAgent,
+    // @ts-ignore: userAgentData sometimes does exist
     "userAgentData.mobile": navigator.userAgentData?.mobile,
+    // @ts-ignore: userAgentData sometimes does exist
     "userAgentData.platform": navigator.userAgentData?.platform,
+    // @ts-ignore: deviceMemory sometimes does exist
     deviceMemory: navigator.deviceMemory,
     hardwareConcurrency: navigator.hardwareConcurrency,
     language: navigator.language,
     // "languages": navigator.languages,  // TODO: uncomment when we support lists
     onLine: navigator.onLine,
+    // @ts-ignore: connection sometimes does exist
     "connection.effectiveType": navigator.connection?.effectiveType,
     "userActivation.hasBeenActive": navigator.userActivation?.hasBeenActive,
     "userActivation.isActive": navigator.userActivation?.isActive,
@@ -39,8 +43,8 @@ const safeGetBrowserData = (): Record<string, unknown> => {
       ...safeGetWindowData(),
       ...safeGetNavigatorData(),
     };
-  } catch (_error) {
-    console.warn("Failed to get browser data", _error);
+  } catch (error) {
+    console.warn("Failed to get browser data", error);
     return {};
   }
 };
@@ -67,7 +71,8 @@ const enrichMetaData = <T extends Record<string, unknown>>(
   return dataWithMeta;
 };
 
-/** Low-level function making the HTTP request to the Sticklight API.
+/**
+ * Low-level function making the HTTP request to the Sticklight API.
  * Enriches data.meta with the current window location and session ID.
  */
 export async function postEvent(
