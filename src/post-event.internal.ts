@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios, { type AxiosResponse } from "axios";
 import { resolveSticklightApiKey } from "./auth";
-import { parseErrorResponse } from "./errors";
+import { parseErrorResponse, type SticklightRequestError } from "./errors";
 import type { AxiosErrorResponse } from "./errors";
 import store from "./session-store";
 
@@ -39,8 +39,8 @@ const safeGetBrowserData = (): Record<string, unknown> => {
       ...safeGetWindowData(),
       ...safeGetNavigatorData(),
     };
-  } catch (_error) {
-    console.warn("Failed to get browser data", _error);
+  } catch (error) {
+    console.warn("Failed to get browser data", error);
     return {};
   }
 };
@@ -67,13 +67,15 @@ const enrichMetaData = <T extends Record<string, unknown>>(
   return dataWithMeta;
 };
 
-/** Low-level function making the HTTP request to the Sticklight API.
- * Enriches data.meta with the current window location and session ID.
+/**
+ * Low-level function making the HTTP request to the Sticklight API.
+ * Enriches the `.meta` property of the event data with browser, session and user data.
+ * @returns The vanilla {@link AxiosResponse} response or a {@link SticklightRequestError} if the request fails.
  */
 export async function postEvent(
   eventName: string,
   data: Record<string, unknown> = {}
-): Promise<void> {
+): Promise<AxiosResponse | SticklightRequestError> {
   const apiKey = resolveSticklightApiKey();
   const requestBody = [{ event_name: eventName, ...enrichMetaData(data) }];
 
@@ -94,6 +96,8 @@ export async function postEvent(
       }
     );
   } catch (error) {
-    console.error(parseErrorResponse(error as AxiosErrorResponse));
+    const errorResponse = parseErrorResponse(error as AxiosErrorResponse);
+    console.error(errorResponse);
+    return errorResponse;
   }
 }
