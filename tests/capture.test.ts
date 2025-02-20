@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { capture, init } from "../src";
 import { SticklightApiKeyNotFoundError } from "../src/errors";
-import store from "../src/session-store";
+import { store } from "../src/session-store";
 
 const STICKLIGHT_API_KEY = process.env.STICKLIGHT_API_KEY;
 
@@ -17,10 +17,9 @@ describe("capture", () => {
   beforeEach(resetStore);
   afterAll(resetStore);
 
-  it("Should raise error when API key not found", () => {
+  it("Should raise error when API key not found", async () => {
     store.setApiKey("");
-    const capturePromise = capture("test", { foo: "bar" });
-    expect(capturePromise).rejects.toBeInstanceOf(
+    await expect(capture("test", { foo: "bar" })).rejects.toBeInstanceOf(
       SticklightApiKeyNotFoundError
     );
   });
@@ -29,7 +28,7 @@ describe("capture", () => {
     init(STICKLIGHT_API_KEY as string);
     const response = await capture("test", { foo: "bar" });
     expect(response).toBeDefined();
-    // expect(response.status).toBe(200);
-    // expect(response.data).toBeDefined();
+    // biome-ignore lint/style/noNonNullAssertion: asserted to be defined above.
+    expect(response!.status).toBe(200);
   });
 });

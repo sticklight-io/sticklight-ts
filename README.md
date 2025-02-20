@@ -32,6 +32,23 @@ To create an API key, go to the [Sticklight Platform].
 
 - Node.js 18 or higher
 
+# Identifying Users
+
+It's important to identify users in order to track their behavior across different sessions.
+It's encouraged to identify users early on in your application, ideally right after authentication.
+
+```typescript
+import * as sl from 'sticklight';
+
+sl.identify("user_123", {
+    name: "John Doe",
+    email: "john.doe@example.com",
+});
+```
+
+`sl.identify` stores the information it receives in the current session, and automatically adds it to the payload of all events captured during that session.
+
+
 ## About Sticklight
 
 Sticklight provides precise and actionable analytics for AI-powered products, giving product managers and developers deep insights into how users interact with their AI features. Our platform helps you:
@@ -50,19 +67,13 @@ git clone https://github.com/sticklight-io/sticklight-ts.git
 cd sticklight-ts
 
 # Install dependencies
-npm install
-# or
-yarn install
+pnpm install
 
 # Run tests
-npm test
-# or
-yarn test
+pnpm test
 
 # Build the package
-npm run build
-# or
-yarn build
+pnpm build
 ```
 
 ## License

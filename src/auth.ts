@@ -1,13 +1,13 @@
 import { SticklightApiKeyNotFoundError } from "./errors";
-import store from "./session-store";
+import { store } from "./session-store";
 
 /**
  * Resolve the Sticklight API key with the following order of precedence:
  * 1. Value passed to the function
  * 2. Value stored in session storage
- * 3. If no API key could be resolved, throw an error
+ * 3. If no API key could be resolved, throw a {@link SticklightApiKeyNotFoundError}.
  *
- * @param {string} [apiKey] - Optional API key to use
+ * @param {string} [apiKey] - Optional API key if available for the caller
  * @returns {string} The resolved Sticklight API key
  * @throws {SticklightApiKeyNotFoundError} If no API key could be resolved
  */
