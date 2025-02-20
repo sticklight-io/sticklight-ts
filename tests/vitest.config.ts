@@ -33,10 +33,10 @@ export default defineConfig({
     // },
     cache: false,
     includeTaskLocation: true,
-    reporters: ["basic"],
+    reporters: ["verbose"],
     testTimeout: 0,
     disableConsoleIntercept: true,
     setupFiles: ['dotenv/config'],
   },
-  clearScreen: false,
+  clearScreen: true,
 });
