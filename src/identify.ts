@@ -20,10 +20,8 @@ export async function identify(
     console.warn("sl.identify: received falsy uniqueId.");
   }
   if (currentUser && uniqueId && uniqueId !== currentUser.id) {
-    const uniqueIdRepr =
-      typeof uniqueId === "string" ? `"${uniqueId}"` : uniqueId;
     console.warn(
-      `sl.identify: session already associated with user ${currentUser.id}; ignoring call to identify with uniqueId ${uniqueIdRepr}.`
+      `sl.identify: session already associated with user ${currentUser.id}; ignoring call to identify with uniqueId ${uniqueId}.`
     );
     return currentUser;
   }

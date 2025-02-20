@@ -8,13 +8,12 @@
   "files": ["dist"],
   "scripts": {
     "// compile": "// Also builds the dist package.",
-    "compile": "pnpm run ci:typecheck && tsup --minify terser",
-    "dev": "tsup --watch",
+    "compile": "pnpm run lint && tsup --minify terser",
     "test": "vitest watch --config tests/vitest.config.ts",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "publish": "pnpm run compile && pnpm publish",
-    "// ci:typecheck": "// For CI. 'pnpm run dev' already does typechecking (dts:true in tsup.config.ts)",
+    "// ci:typecheck": "// For CI. 'pnpm run compile' already does typechecking (dts:true in tsup.config.ts)",
     "ci:typecheck": "tsc --noEmit",
     "prepare": "husky"
   },
